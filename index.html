@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Draggable</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" />
+    
+    <style>
+      body {
+        height: 100vh; 
+        margin: 0;
+        background: #8E2DE2;
+        background: -webkit-linear-gradient(to right, #4A00E0, #8E2DE2);
+        background: linear-gradient(to right, #4A00E0, #8E2DE2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      a, a:visited { color: #fff; opacity: 0.7; }
+
+      #wrapper {
+        box-sizing: border-box;
+        width: 80%;
+        height: 80%;
+        background: #fff;
+      }
+
+      .draggable {
+        box-sizing: border-box;
+        width: 100px;
+        height: 100px;
+        margin:  0;
+        cursor: pointer;
+        background: #34495e;
+      }
+
+      .block {
+      display: block;
+      position: absolute;
+      top: 10px;
+      width: 100%;
+      text-align: center;
+      color: #fff;
+      font-family: sans-serif;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="block">
+      <h3>Draggable element challenge.</h3>
+      <p>
+        This solution was made using jQuery UI. <br />
+        <small>Click this <a href='index2.html'>Link</a> to see another solution using vanilla JS.</small>small></p>
+    </div>
+
+    <div id="wrapper">
+      <div id="draggable" class="draggable ui-widget-content"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $('#draggable').draggable({
+          containment: '#wrapper',
+          scroll: false
+        });
+      });
+    </script>
+
+  </body>
+</html>

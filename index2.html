@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>Draggable</title>
+  <style>
+    body {
+      height: 100vh; 
+      margin: 0;
+      background: #8E2DE2;
+      background: -webkit-linear-gradient(to right, #4A00E0, #8E2DE2);
+      background: linear-gradient(to right, #4A00E0, #8E2DE2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    a, a:visited { color: #fff; opacity: 0.7; }
+
+    #wrapper {
+      position: relative;
+      box-sizing: border-box;
+      width: 80%;
+      height: 80%;
+      background: #fff;
+    }
+    
+    #draggable {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100px;
+      height: 100px;
+      background: #34495e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .block {
+      display: block;
+      position: absolute;
+      top: 10px;
+      width: 100%;
+      text-align: center;
+      color: #fff;
+      font-family: sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <div class="block">
+    <h3>Draggable element challenge.</h3>
+    <p>
+      This solution was made using vanilla JS. <br />
+      <small>Click this <a href='index.html'>Link</a> to see another solution using jQuery UI.</small>small></p>
+  </div>
+  <div id='wrapper'>
+    <div id='draggable'>
+    </div>  
+  </div>
+  
+  <script>
+  // Make the DIV element draggagle:
+  drag(document.getElementById('draggable'));
+
+  function drag(el) {
+    var mouseX = 0, mouseY = 0;
+
+    el.onmousedown = mouseDown;
+
+    function mouseDown(e) {
+      e.preventDefault();
+
+      // cursor position
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+
+      // release mouse
+      document.onmouseup = mouseUp;
+
+      // move mouse
+      document.onmousemove = mouseMove;
+    }
+
+    function mouseMove(e) {
+      e.preventDefault();
+
+      // mouse moviment
+      newMouseX = mouseX - e.clientX;
+      newMouseY = mouseY - e.clientY;
+      
+      // new cursor position
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      
+      // set the left/right position if not touching
+      if(
+        (el.offsetLeft - newMouseX) <= 0 || 
+        (el.offsetLeft - newMouseX) >= (el.parentElement.offsetWidth - el.offsetWidth)
+        ){
+          console.log('Touching left or right.');
+      } else {
+        el.style.left = (el.offsetLeft - newMouseX) + 'px';
+      }
+
+      // set the top/bottom position if not touching
+      if(
+        (el.offsetTop - newMouseY) <= 0 || 
+        (el.offsetTop - newMouseY) >= (el.parentElement.offsetHeight - el.offsetHeight)
+        ){
+          console.log('Touching top or bottom');
+      } else {
+        el.style.top = (el.offsetTop - newMouseY) + 'px';
+      }
+      
+    }
+
+    function mouseUp() {
+      document.onmouseup = null;
+      document.onmousemove = null;
+    }
+  }
+  </script>
+</body>
+</html>
